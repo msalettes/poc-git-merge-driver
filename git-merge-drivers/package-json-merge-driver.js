@@ -44,6 +44,11 @@ function mergeDependencies(ancestor, current, other) {
 }
 
 try {
+    console.log('Merging package.json files...', {
+        ancestorPath,
+        currentPath,
+        otherPath
+    });
     // Parse the JSON files
     const ancestorContent = JSON.parse(fs.readFileSync(ancestorPath, 'utf8'));
     const currentContent = JSON.parse(fs.readFileSync(currentPath, 'utf8'));

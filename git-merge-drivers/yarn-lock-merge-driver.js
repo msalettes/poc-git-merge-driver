@@ -10,9 +10,26 @@ const [ancestorPath, currentPath, otherPath, marker] = process.argv.slice(2);
 try {
   // First, ensure that package.json is properly merged
   // The yarn-lock driver should be run AFTER the package-json driver
+  console.log('Merging yarn.lock files...', {
+    ancestorPath,
+    currentPath,
+    otherPath
+  });
+
+
 
   // Get the directory containing the yarn.lock file
   const repoRoot = path.dirname(currentPath);
+
+  const packageJsonPath = path.join(repoRoot, 'package.json');
+
+  // Try to detect if package.json still has merge conflicts
+  const packageContent = fs.readFileSync(packageJsonPath, 'utf8');
+  if (packageContent.includes('<<<<<<<') || packageContent.includes('=======') || packageContent.includes('>>>>>>>')) {
+    console.error('Error: package.json still has merge conflicts. Please resolve them before merging yarn.lock.');
+    process.exit(1);
+  }
+
 
   // Backup the current yarn.lock
   const backupPath = `${currentPath}.backup`;
