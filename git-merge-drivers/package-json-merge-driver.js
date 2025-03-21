@@ -84,6 +84,7 @@ try {
         JSON.stringify(mergedContent, null, 2) + '\n'
     );
 
+    const repoRoot = path.dirname(currentPath);
     const yarnLockPath = path.join(repoRoot, 'yarn.lock');
 
     const yarnLockContent = fs.readFileSync(yarnLockPath, 'utf8');
