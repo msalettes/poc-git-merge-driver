@@ -25,7 +25,6 @@ function mergeDependencies(ancestor, current, other) {
 
         // Check if it's a @mirakl package or has semver versions
         if (
-            pkg.startsWith('@mirakl/') ||
             (semver.valid(semver.coerce(result[pkg])) &&
                 semver.valid(semver.coerce(otherVersion)))
         ) {
