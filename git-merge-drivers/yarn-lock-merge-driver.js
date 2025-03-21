@@ -25,9 +25,20 @@ try {
 
   // Try to detect if package.json still has merge conflicts
   const packageContent = fs.readFileSync(packageJsonPath, 'utf8');
+
+  // If package.json has not been merged yet, keep the current yarn.lock file
+  // to avoid running yarn install with an incomplete package.json
+  // In that case, the yarn install command will be run by the package.json merge driver
   if (packageContent.includes('<<<<<<<') || packageContent.includes('=======') || packageContent.includes('>>>>>>>')) {
-    console.error('Error: package.json still has merge conflicts. Please resolve them before merging yarn.lock.');
-    process.exit(1);
+    // keep the current yarn.lock file
+    const incomingContent = JSON.parse(fs.readFileSync(otherPath, 'utf8'));
+
+    fs.writeFileSync(
+      currentPath,
+      incomingContent
+    );
+
+    process.exit(0);
   }
 
 
@@ -39,7 +50,8 @@ try {
 
   try {
     // Execute yarn to regenerate the lockfile
-    execSync('yarn install --force', {
+    // execSync('yarn install --force', {
+    execSync('yarn install', {
       cwd: repoRoot,
       stdio: ['ignore', 'pipe', 'pipe']
     });

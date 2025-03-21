@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const { execSync } = require('child_process');
+const path = require('path');
 
 const semver = require('semver');
 
@@ -81,6 +83,20 @@ try {
         currentPath,
         JSON.stringify(mergedContent, null, 2) + '\n'
     );
+
+    const yarnLockPath = path.join(repoRoot, 'yarn.lock');
+
+    const yarnLockContent = fs.readFileSync(yarnLockPath, 'utf8');
+
+    // If yarn.lock has been already merged, we need to run yarn install to update it
+    if (!yarnLockContent.includes('<<<<<<<') && yarnLockContent.includes('=======') && yarnLockContent.includes('>>>>>>>')) {
+        // Execute yarn to regenerate the lockfile
+        execSync('yarn install', {
+            cwd: repoRoot,
+            stdio: ['ignore', 'pipe', 'pipe']
+        });
+    }
+
     process.exit(0); // Success
 } catch (error) {
     console.error('Error merging package.json:', error);
