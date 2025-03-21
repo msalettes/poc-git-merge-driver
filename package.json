@@ -1,0 +1,17 @@
+{
+  "name": "poc-git-merge-driver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:msalettes/poc-git-merge-driver.git",
+  "author": "msalettes <matthieu.salettes@mirakl.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "semver": "^7.7.1"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-intl": "^6.8.9",
+    "react-router": "^7.2.0"
+  }
+}
