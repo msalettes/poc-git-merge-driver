@@ -92,7 +92,7 @@ try {
     // If yarn.lock has been already merged, we need to run yarn install to update it
     if (!yarnLockContent.includes('<<<<<<<') && yarnLockContent.includes('=======') && yarnLockContent.includes('>>>>>>>')) {
         // Execute yarn to regenerate the lockfile
-        execSync('yarn install', {
+        execSync('yarn install --force', {
             cwd: repoRoot,
             stdio: ['ignore', 'pipe', 'pipe']
         });
