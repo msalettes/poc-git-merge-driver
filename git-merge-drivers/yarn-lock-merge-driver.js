@@ -16,6 +16,8 @@ try {
     otherPath
   });
 
+  // exit
+  process.exit(0);
 
 
   // Get the directory containing the yarn.lock file
