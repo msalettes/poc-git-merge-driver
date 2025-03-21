@@ -25,6 +25,7 @@ try {
 
   // Try to detect if package.json still has merge conflicts
   const packageContent = fs.readFileSync(packageJsonPath, 'utf8');
+  console.log("DEBUG ~ packageContent:", packageContent)
 
   // If package.json has not been merged yet, keep the current yarn.lock file
   // to avoid running yarn install with an incomplete package.json
