@@ -33,15 +33,18 @@ try {
     // keep the current yarn.lock file
     const incomingContent = JSON.parse(fs.readFileSync(otherPath, 'utf8'));
 
-    fs.writeFileSync(
-      currentPath,
-      incomingContent
-    );
+    console.log('======DO NOTHING======');
+
+    // fs.writeFileSync(
+    //   currentPath,
+    //   incomingContent
+    // );
 
     process.exit(0);
   }
 
-
+  //
+  console.log('======CREATE YARN LOCK BK======');
   // Backup the current yarn.lock
   const backupPath = `${currentPath}.backup`;
   fs.copyFileSync(currentPath, backupPath);
